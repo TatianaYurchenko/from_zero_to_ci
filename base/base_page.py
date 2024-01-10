@@ -17,11 +17,13 @@ class BasePage:
 
     # метод который будет открывать страницы
     def open(self):
-        self.driver.get(self.PAGE_URL)
+        with allure.step(f"Open {self.PAGE_URL} page"):
+            self.driver.get(self.PAGE_URL)
 
     # проверяет что запрашиваемая страница открыта
     def is_opened(self):
-        self.wait.until(EC.url_to_be(self.PAGE_URL))
+        with allure.step(f"Page {self.PAGE_URL} is opened"):
+            self.wait.until(EC.url_to_be(self.PAGE_URL))
 
 #    метод который озволяет сделать скриншот после каждого теста
     def make_screenshot(self, screenshot_name):
