@@ -3,6 +3,7 @@ import time
 from base.base_page import BasePage
 from config.links import Links
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver import Keys
 import smtplib
 class PersonalPage(BasePage):
     PAGE_URL = Links.PERSONAL_PAGE
@@ -16,12 +17,18 @@ class PersonalPage(BasePage):
         with allure.step(f"Change name on '{new_name}'"):
             first_name_fild = self.wait.until(EC.element_to_be_clickable(self.FIRST_NAME_FIELD))
             time.sleep(7)
-            # first_name_fild.click()
-            first_name_fild.clear()
-            time.sleep(7)
-            # assert first_name_fild.get_attribute("value") == '', "The is a text"
+
+            # first_name_fild.clear()
+            # self.driver.find_element(*self.FIRST_NAME_FIELD).clear()
+
+            # clear() для очистки не сработал используем такую конструкцию
+            first_name_fild.send_keys(Keys.CONTROL + "A")
+            first_name_fild.send_keys(Keys.BACKSPACE)
+
+
+            assert first_name_fild.get_attribute("value") == '', "The is a text"
             first_name_fild.send_keys(new_name)
-            time.sleep(7)
+
             self.name = new_name
 
     @allure.step("Save changes")

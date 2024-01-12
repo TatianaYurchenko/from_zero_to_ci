@@ -28,4 +28,5 @@ class TestProfileFeature:
         page3.change_name(f"Test {random.randint(1, 100)}")
         page3.save_changes()
         page3.is_changes_saved()
+        page3.make_screenshot("Success")
 
