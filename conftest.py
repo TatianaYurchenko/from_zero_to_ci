@@ -1,20 +1,24 @@
-import pytest
 from selenium import webdriver
+import pytest
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
 
-# фикстиура которая будет инициализировать драйвер для тестов
-# request параметр который позволяет создавать объект драйвера внутри пэджей и внутри тестов
-# будет втоматом вызываться для каждого теста, экземпляр браузера будет создаваться для каждого теста
-@pytest.fixture(scope="function", autouse=True)
-def driver(request):
+@pytest.fixture
+def options():
     options = Options()
-    # options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--window-size=1920,1080")
-    # options.add_argument("--incognito")
-    # options.add_argument("--ignore-certificate-errors")
+    options.add_argument('--window-size=2880,1800')
+    # options.add_argument('--headless')
+    # options.add_argument('--no-sandbox')
+    # options.add_argument('--disable-dev-shm-usage')
+    return options
+
+@pytest.fixture
+def driver(options):
     driver = webdriver.Chrome(options=options)
-    request.cls.driver = driver # создает объект драйвера внутри тестовых классов
     yield driver
     driver.quit()
+
+# @pytest.fixture
+# def wait(driver):
+#     wait = WebDriverWait(driver, timeout=15)
+#     return wait

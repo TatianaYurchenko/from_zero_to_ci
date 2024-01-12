@@ -6,8 +6,9 @@ from selenium.webdriver.support import expected_conditions as EC
 class LoginPage(BasePage):
     PAGE_URL = Links.LOGIN_PAGE
 
+
     USERNAME_FIELD = ("xpath", "//input[@name='username']")
-    PASSWORD_FIELD = ("xpath", "//input[@name='username']")
+    PASSWORD_FIELD = ("xpath", "//input[@name='password']")
     SUBMIT_BTM = ("xpath", "//button[@type='submit']")
 
     # шаги. прописываем шаги для взаимодействия с элементами на странице
